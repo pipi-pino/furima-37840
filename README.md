@@ -16,7 +16,6 @@
 ### Association
 
 * has_many :item
-* has_one :credit_card
 
 ## itemsテーブル
 
@@ -25,40 +24,29 @@
 | name               | string             | null: false                     |
 | description        | text               | null: false                     |
 | price              | integer            | null: false                     |
-| item_condition     | string             | null: false                     |
-| size               | string             | null: false                     |
-| shipping_charge    | string             | null: false                     |
-| delivery_time      | string             | null: false                     |
-| area               | string             | null: false                     |
+| item_condition     | integer            | null: false                     |
+| shipping_charge_id | integer            | null: false                     |
+| delivery_time_id   | integer            | null: false                     |
+| area_id            | integer            | null: false                     |
 | category_id        | integer            | null: false                     |
-| user_id            | integer            | null: false, foreign_key: true  |
+| user               | references         | null: false, foreign_key: true  |
 
 ### Association
 
 * belongs_to :user
+* has_one :order
 
-## credit_cardsテーブル
-
-| Column             | Type               | Options                         |
-|--------------------|--------------------|---------------------------------|
-| customer_id        | string             | null: false                     |
-| card_id            | string             | null: false                     |
-| user_id            | integer            | null: false, foreign_key: true  |
-
-### Association
-
-* belongs_to :user
-
-## orderテーブル
+## ordersテーブル
 
 | Column             | Type               | Options                         |
 |--------------------|--------------------|---------------------------------|
-| user_id            | integer            | null: false, foreign_key: true  |
-| item_id            | string             | null: false                     |
+| user               | references         | null: false, foreign_key: true  |
+| item               | references         | null: false                     |
 
 ### Association
 
-* belongs_to :items
+* belongs_to :item
+* has_one :address
 
 ## addressテーブル
 
@@ -69,7 +57,8 @@
 | prefecture         | string             | null: false               |
 | city               | string             | null: false               |
 | address            | string             | null: false               |
-| building_name      | string             | null: false               |
+| building_name      | string             |                           |
+| order_id           | integer            | null: false               |
 
 ### Association
 
